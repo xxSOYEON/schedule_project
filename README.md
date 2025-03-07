@@ -1,4 +1,4 @@
-## Schedule Management System
+## Schedule System
 
 
 
@@ -74,5 +74,8 @@ Google Calendar 스타일의 캘린더 UI를 쉽게 구현할 수 있는 라이�
 MyBatis는 SQL 매핑 프레임워크로, Spring Boot에서 사용하면 쿼리를 XML로 관리,
 SQL 쿼리를 직접 작성할 수 있어 데이터베이스 관리가 유연하여 사용.
 
+
+🔗 Swagger UI:
+👉 http://localhost:8080/swagger-ui/index.html#/base-task-logs-controller
 
 
