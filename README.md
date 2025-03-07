@@ -1,6 +1,5 @@
 ## Schedule System
-
-
+<br>
 
 # 📅 개발내용 
 : 일정을 등록하고 관리하는 캘린더.
@@ -9,32 +8,44 @@
 - 일정 별 중요도 설정 및 그에따른 필터링된 일정 조회 가능.
 - Month 페이지가 아닌 Week페이지를 선택하면 일정을 시간대별로 확인 가능 ( day - 그날 일정 확인 )
 
+<br>
 
+# 🛠️사용 기술
 
-# 🚀 빌드 및 실행 방법
-1. 프로젝트 클론
-```bash
-git clone https://github.com/사용자명/저장소명.git
-
-2. 프론트엔드 실행
-
-cd frontend
-npm install
-npm start
-
-3. 백엔드 실행
-
-cd backend
-./gradlew bootRun
-
-
-### 🛠 사용 기술
 - **Frontend**: React, Ant Design, React-Big-Calendar
 - **Backend**: Spring Boot, MyBatis, MySQL
 
+<br><br>
 
-####📌 Front 주요 컴포넌트 및 역할
 
+# 🚀 빌드 및 실행 방법
+---
+
+
+**1. 프로젝트 클론**
+
+
+
+**2. 프론트엔드 실행**
+```bash
+cd front/frontend/ 
+npm install 
+npm start 
+```
+**3. 백엔드 실행**
+```bash
+cd backend
+./gradlew bootRun
+```
+
+---
+
+<br>
+<br>
+
+
+# ⚙️ Front 주요 컴포넌트 및 역할
+---
 1️⃣ `App.js` (메인 컴포넌트)
 - 프로젝트의 최상위 컴포넌트
 - 캘린더(`ScheduleCalendar`)와 일정 추가/수정 모달(`DetailModal`)을 관리
@@ -55,33 +66,139 @@ cd backend
 - `fetchEvents()`를 통해 백엔드 API에서 데이터를 불러옴
 -  함수를 통해 일정 CRUD 기능 수행
 
+---
+<br>
 
-###📌 Backend 주요 사용 라이브러리 및 이유
+# 🖥️ Backend 주요 사용 라이브러리 및 이유
+---
 1️⃣ React
-React는 UI를 빠르고 효율적으로 만들 수 있는 JavaScript 라이브러리,
+- React는 UI를 빠르고 효율적으로 만들 수 있는 JavaScript 라이브러리,<br>
 컴포넌트 기반 개발로 UI 재사용성을 높이고, 빠른 상태 관리를 위해 사용.
 
 2️⃣ Ant Design (antd)
-디자인 가이드라인이 정해져 있어 일관된 UI/UX를 구현할 수 있는 라이브러리,
+-디자인 가이드라인이 정해져 있어 일관된 UI/UX를 구현할 수 있는 라이브러리,<br>
 간결하고 세련된 UI 디자인을 빠르게 적용하기 위해 사용.
 
 3️⃣ React-Big-Calendar
-Google Calendar 스타일의 캘린더 UI를 쉽게 구현할 수 있는 라이브러리,
+-Google Calendar 스타일의 캘린더 UI를 쉽게 구현할 수 있는 라이브러리,<br>
 월(Month), 주(Week), 일(Day) 등의 다양한 뷰 모드를 제공하며, 기간/시간의 가시화가 가장 뛰어나 사용.
 
-4️⃣MyBatis (백엔드)
-MyBatis는 SQL 매핑 프레임워크로, Spring Boot에서 사용하면 쿼리를 XML로 관리,
+4️⃣ MyBatis (백엔드)
+-MyBatis는 SQL 매핑 프레임워크로, Spring Boot에서 사용하면 쿼리를 XML로 관리,<br>
 SQL 쿼리를 직접 작성할 수 있어 데이터베이스 관리가 유연하여 사용.
 
+---
+<br><br>
 
-🔗 Swagger UI:
-👉 http://localhost:8080/swagger-ui/index.html#/base-task-logs-controller
 
-🔗 DB스키마 및 기초데이터 백업파일
-- DDL.sql, DML.sql
+# 📌 API 명세서
+---
 
-🔗 테스트 케이스 파일
-- 
+
+🔗 Swagger UI : **[Swagger UI 바로가기](http://localhost:8080/swagger-ui.html)**  
+
+##  1. API 목록
+| HTTP Method | URL | 설명 |
+|------------|-----|-----|
+| GET | `/api/schedule/list` | 일정 목록 조회 |
+| POST | `/api/schedule/add` | 일정 추가 |
+| PUT | `/api/schedule/update/{id}` | 일정 수정 |
+| DELETE | `/api/schedule/delete/{id}` | 일정 삭제 |
+| POST | `/api/schedule/checkTime` | 일정 중복 체크 |
+
+<br>
+
+##  2.API 테스트 케이스
+
+<details>
+<summary><b> < 테스트 목록 > (클릭하여 확인하세요.)</b></summary>
+
+<div style="font-size: 12px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; background-color: #f8f9fa;">
+
+### 1️⃣ `GET /api/schedule/list` - 일정 목록 조회
+- **설명**: 모든 일정 목록을 조회합니다.
+- **테스트 케이스**:
+  - ✅ **성공 시**:  
+    - **응답 코드**: `200 OK`
+    - **응답 데이터**: 일정 목록을 반환해야 합니다.
+  - ❌ **실패 시**:  
+    - **응답 코드**: `500 Internal Server Error`
+    - **응답 데이터**: 서버 오류 발생 시 에러 메시지를 반환해야 합니다.
+
+---
+
+### 2️⃣ `POST /api/schedule/add` - 새로운 일정 추가
+- **설명**: 새로운 일정을 추가합니다.
+- **테스트 케이스**:
+  - ✅ **성공 시**:  
+    - **응답 코드**: `200 OK`
+    - **응답 데이터**: 추가된 일정 데이터를 반환해야 합니다.
+  - ❌ **실패 시**:  
+    - **응답 코드**: `400 Bad Request`
+    - **응답 데이터**: 요청 데이터가 올바르지 않을 경우 에러 메시지를 반환해야 합니다.
+  - ❌ **실패 시**:  
+    - **응답 코드**: `409 Conflict`
+    - **응답 데이터**: 일정이 중복된 경우 중복 오류 메시지를 반환해야 합니다.
+
+---
+
+### 3️⃣ `PUT /api/schedule/update/{id}` - 일정 수정
+- **설명**: 주어진 ID에 해당하는 일정을 수정합니다.
+- **테스트 케이스**:
+  - ✅ **성공 시**:  
+    - **응답 코드**: `200 OK`
+    - **응답 데이터**: 수정된 일정 데이터를 반환해야 합니다.
+  - ❌ **실패 시**:  
+    - **응답 코드**: `404 Not Found`
+    - **응답 데이터**: 존재하지 않는 일정 ID인 경우 에러 메시지를 반환해야 합니다.
+  - ❌ **실패 시**:  
+    - **응답 코드**: `400 Bad Request`
+    - **응답 데이터**: 요청 데이터가 올바르지 않을 경우 에러 메시지를 반환해야 합니다.
+
+---
+
+### 4️⃣ `DELETE /api/schedule/delete/{id}` - 일정 삭제
+- **설명**: 주어진 ID에 해당하는 일정을 삭제합니다.
+- **테스트 케이스**:
+  - ✅ **성공 시**:  
+    - **응답 코드**: `200 OK`
+    - **응답 데이터**: 삭제 성공 응답을 반환해야 합니다.
+  - ❌ **실패 시**:  
+    - **응답 코드**: `404 Not Found`
+    - **응답 데이터**: 존재하지 않는 일정 ID인 경우 에러 메시지를 반환해야 합니다.
+
+---
+
+### 5️⃣ `POST /api/schedule/checkTime` - 일정 중복 체크
+- **설명**: 등록하려는 일정이 기존 일정과 시간이 중복되는지 확인합니다.
+- **테스트 케이스**:
+  - ✅ **성공 시**:  
+    - **응답 코드**: `200 OK`
+    - **응답 데이터**:
+      ```json
+      { "isDuplicated": true }
+      ```
+      또는  
+      ```json
+      { "isDuplicated": false }
+      ```
+  - ❌ **실패 시**:  
+    - **응답 코드**: `400 Bad Request`
+    - **응답 데이터**: 요청 데이터가 올바르지 않을 경우 에러 메시지를 반환해야 합니다.
+  - ❌ **실패 시**:  
+    - **응답 코드**: `500 Internal Server Error`
+    - **응답 데이터**: 서버 오류 발생 시 에러 메시지를 반환해야 합니다.
+
+</div>
+</details>
+
+---
+
+
+
+
+## 📝 DB스키마 및 기초데이터 백업파일
+DDL.sql, DML.sql 참조
 
 
 
