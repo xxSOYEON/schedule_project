@@ -76,7 +76,7 @@ VALUES ('일정_4', '행
 ```
 <br>
 
-1. 프로젝트 클론 (GitHub에서 다운로드)
+1. 프로젝트 클론 (GitHub에서 다운로드 및 window powershell 이용 )
    
 ```bash
 git clone https://github.com/xxSOYEON/schedule_project.git
@@ -100,12 +100,14 @@ java -jar .\backend-0.0.1-SNAPSHOT.jar
 ```
 <br>
 
-## 3. frontend 실행
+## 3. frontend 실행 ( cmd 이용 )
 <br>
 
 1.프론트앤드 경로 이동
 ```bash
-cd ..front/frontend
+
+cd {프로젝트 경로}/front/frontend
+
 ```
 <br>
 
