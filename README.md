@@ -24,7 +24,9 @@
 
 **1. 프로젝트 클론**
 
+https://github.com/xxSOYEON/schedule_project.git
 
+<br>
 
 **2. 프론트엔드 실행**
 ```bash
