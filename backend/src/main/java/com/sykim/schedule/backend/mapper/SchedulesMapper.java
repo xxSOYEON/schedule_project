@@ -10,7 +10,7 @@ public interface SchedulesMapper {
     List<Schedules> getSchedules();
     int addSchedule(Schedules schedules);
     int updateSchedule(Schedules schedules);
-    List<Schedules> getSchedulesById(int id);
+    Schedules getSchedulesById(int id);
     int deleteSchedule(int id);
     int checkTime(Schedules schedules);
     

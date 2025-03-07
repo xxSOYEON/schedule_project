@@ -22,7 +22,7 @@ content-type: application/json
 {
   "title": "제목",
   "description": "내용내용",
-  "startDate": "2025-03-04",
+  "startDate": "2025-03-05",
   "endDate": "2025-03-05",
   "startTime":"12:00",
   "endTime":"12:33",
@@ -58,3 +58,19 @@ Content-Type: application/json
 
 DELETE http://localhost:8080/api/schedule/delete/2
 Content-Type: application/json
+
+### API명
+### - checkTime
+### 서버구분
+### - 
+### API설명
+### - 중복시간을 체크하는는 API
+
+POST http://localhost:8080/api/schedule/checkTime
+Content-Type: application/json
+
+{
+  "startDate": "2025-03-04",
+  "startTime": "12:00",
+  "endTime": "12:33"
+}

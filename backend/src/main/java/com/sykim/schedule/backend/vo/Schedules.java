@@ -26,5 +26,7 @@ public class Schedules {
    
     private LocalTime originalStartTime; // 수정 전 시간 필드 추가
     private LocalTime originalEndTime;
+    private Timestamp originalStartDate;
+    
 
 }

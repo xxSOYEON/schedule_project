@@ -33,6 +33,8 @@
         ORDER BY createdDate ASC, startDate ASC;
     </select>
 
+
+
     <select id="checkTime" resultType="int" parameterType="com.sykim.schedule.backend.vo.Schedules">
         SELECT COUNT(*)
         FROM schedules
@@ -42,8 +44,11 @@
                 (startTime &lt; #{endTime} AND endTime &gt; #{startTime})  
                 OR
                 (startTime &lt; #{startTime} AND endTime &gt; #{endTime})  
-            );
+            )
+            AND id != #{id};  <!-- 자기 자신은 제외 -->
     </select>
+
+
 
     <insert id="addSchedule" useGeneratedKeys="true" keyProperty="id" parameterType="com.sykim.schedule.backend.vo.Schedules" >
         INSERT INTO schedules (

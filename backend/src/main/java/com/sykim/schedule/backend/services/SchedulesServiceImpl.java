@@ -28,8 +28,17 @@ public class SchedulesServiceImpl implements SchedulesService {
 
     @Override
     public Schedules addSchedule(Schedules schedules) {
-        // 중복 체크 및 일정 추가
-        checkAndProcessSchedule(schedules, false);
+        // 중복 체크
+        if (schedules.getStartTime() != null && schedules.getEndTime() != null && checkTime(schedules)) {
+            throw new ScheduleException(AppErrorCode.DUPLICATE_SCHEDULE_ERROR);
+        }
+
+        // 일정 추가
+        int addCount = _schedulesMapper.addSchedule(schedules);
+        if (addCount == 0) {
+            throw new ScheduleException(AppErrorCode.ADD_SCHEDULE_ERROR);
+        }
+
         return schedules;
     }
     
@@ -41,81 +50,53 @@ public class SchedulesServiceImpl implements SchedulesService {
 
     @Override
     public Schedules updateSchedule(Schedules schedules) {
-       // 수정하기 전에 originalStartTime과 originalEndTime 설정 ( 원본 시간 저장 )
-        // var oldRow = _schedulesMapper.getSchedulesById(schedules.getId());
-        // schedules.setOriginalStartTime(oldRow.get(0).getStartTime());
-        // schedules.setOriginalEndTime(oldRow.get(0).getEndTime());
-    
-        // 시간 수정 여부 체크
-        if (isTimeChanged(schedules)) { 
-            if (checkTime(schedules)) {
+        // 기존 일정 정보 가져오기
+        Schedules oldRow = _schedulesMapper.getSchedulesById(schedules.getId());
+        // if (oldRow.isEmpty()) {
+        //     throw new ScheduleException(AppErrorCode.UPDATE_SCHEDULE_ERROR);
+        // }
+       
+        schedules.setOriginalStartTime(oldRow.getStartTime());
+        schedules.setOriginalEndTime(oldRow.getEndTime());
+        schedules.setOriginalStartDate(oldRow.getStartDate());
+
+        // id를 명확하게 설정 (혹시 null이 되지 않도록)
+         schedules.setId(oldRow.getId());
+       
+         // 시간이 변경되었는지 확인 후 중복 체크
+        if (isTimeChanged(schedules) && checkTime(schedules)) {
             throw new ScheduleException(AppErrorCode.DUPLICATE_SCHEDULE_ERROR);
         }
-    }
-            performUpdate(schedules); // 시간 변경이 없으면 업데이트만 수행
-        
-
-        return schedules;
+       
+        // 일정 수정
+        int updateCount = _schedulesMapper.updateSchedule(schedules);
+        if (updateCount == 0) {
+             throw new ScheduleException(AppErrorCode.UPDATE_SCHEDULE_ERROR);
+        }
+       
+         return schedules;
     }
 
     // 원본 시간과 새로운 시간을 비교하여 변경되었는지 확인
-    private boolean isTimeChanged(Schedules schedules) {
+        private boolean isTimeChanged(Schedules schedules) {
         // 원본 시간과 새로운 시간을 비교해서 다르면 true 반환
-        return schedules.getOriginalStartTime() != null &&
-               schedules.getOriginalEndTime() != null &&
-               (!schedules.getStartTime().equals(schedules.getOriginalStartTime()) ||
-               !schedules.getEndTime().equals(schedules.getOriginalEndTime()));
-    }
-    
-    // 공통 처리 메서드
-    private void checkAndProcessSchedule(Schedules schedules, boolean isUpdate) {
-        // startTime과 endTime이 존재하면 시간 중복 체크
-        if (schedules.getStartTime() != null && schedules.getEndTime() != null) {
-            // 시간 중복 체크
+        boolean timeChanged = schedules.getOriginalStartTime() != null &&
+                            schedules.getOriginalEndTime() != null &&
+                            (!schedules.getStartTime().equals(schedules.getOriginalStartTime()) ||
+                            !schedules.getEndTime().equals(schedules.getOriginalEndTime()));
 
-            if (checkTime(schedules)) {
-                throw new ScheduleException(AppErrorCode.DUPLICATE_SCHEDULE_ERROR); // 중복이 있으면 예외 처리
-            }
-        }
-    
-        // 일정 추가 또는 수정 처리
-        if (isUpdate) {
-            performUpdate(schedules); // 수정 처리
-        } else {
-            performAdd(schedules); // 추가 처리
-        }
-    
-        // 시간 변환
-        schedules.setStartTime(formatTime(schedules.getStartTime()));
-        schedules.setEndTime(formatTime(schedules.getEndTime()));
+        // 날짜 변경 여부 추가 체크
+        boolean dateChanged = schedules.getOriginalStartDate() != null &&
+                            !schedules.getStartDate().equals(schedules.getOriginalStartDate());
+
+        System.out.println("변경 여부 - 시간 변경: " + timeChanged + 
+                        " | 날짜 변경: " + dateChanged);
+
+        return timeChanged || dateChanged; // 둘 중 하나라도 변경되었으면 true 반환
     }
+
     
-    // 일정 추가 로직
-    private void performAdd(Schedules schedules) {
-        int addCount = _schedulesMapper.addSchedule(schedules);
-        if (addCount == 0) {
-            throw new ScheduleException(AppErrorCode.ADD_SCHEDULE_ERROR); // 추가 실패
-        }
-    }
-    
-    // 일정 수정 로직
-    private void performUpdate(Schedules schedules) {
-        int updateCount = _schedulesMapper.updateSchedule(schedules);
-        if (updateCount == 0) {
-            throw new ScheduleException(AppErrorCode.UPDATE_SCHEDULE_ERROR); // 수정 실패
-        }
-    }
-    
-    // 시간 변환
-    private LocalTime formatTime(LocalTime time) {
-        if (time != null) {
-            return LocalTime.parse(time.toString(), DateTimeFormatter.ofPattern("HH:mm"));
-        }
-        return null;
-    }
-    
-    // schedules.setStartTime(LocalTime.parse(schedules.getStartTime().toString(), DateTimeFormatter.ofPattern("HH:mm")));
-    // schedules.setEndTime(LocalTime.parse(schedules.getEndTime().toString(), DateTimeFormatter.ofPattern("HH:mm")));
+
     
     @Override
     public int deleteSchedule(int id ) {

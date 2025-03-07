@@ -93,50 +93,51 @@ const useScheduleData = () => {
 
 
     const handleSave = useCallback(async (newEvent) => {
-
-         // 먼저 중복 일정 체크 수행
+        console.log("🔍 저장 요청 시작", newEvent);
+    
+        // 먼저 중복 일정 체크 수행
         const isDuplicated = await checkTime(newEvent);
+    
+        console.log("⚠️ 중복 체크 결과:", isDuplicated);
+        
         if (isDuplicated) {
-            message.error("중복된 일정이 존재합니다!");
-            return false;
+            message.error("⛔ 중복된 일정이 존재합니다! 저장을 중단합니다.");
+            return false;  // 🚨 여기서 반드시 return
         }
-
-
+    
         const url = newEvent.id
             ? `${process.env.REACT_APP_API_URL}/update/${newEvent.id}`
             : `${process.env.REACT_APP_API_URL}/add`;
-
+    
         const method = newEvent.id ? "PUT" : "POST";
-
-        return fetch(url, {
-            method,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newEvent),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    // 서버에서 실패 응답이 오면 에러 처리
-                    throw new Error('API 호출 실패');
-                }
-                return response.json();  // 성공적인 응답이면 JSON 파싱
-            })
-            .then((data) => {
-                if (data.success != 'N') {
-                    // 서버에서 성공적으로 처리되었을 경우
-                    message.success(newEvent.id ? "일정이 수정되었습니다!" : "새로운 일정이 추가되었습니다!");
-                    fetchEvents();  // 일정 목록 다시 불러오기
-                    return true;
-                } else {
-                    message.error(data.message);
-                    return false;
-                }
-            })
-            .catch((error) => {
-                // 네트워크 오류 또는 기타 실패
-                console.error(error);
-                message.error(newEvent.id ? "수정 실패" : "추가 실패");
-                return false;
+    
+        try {
+            const response = await fetch(url, {
+                method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newEvent),
             });
+    
+            if (!response.ok) {
+                throw new Error('API 호출 실패');
+            }
+    
+            const data = await response.json();
+            console.log("✅ 서버 응답 데이터:", data);
+    
+            if (data.success !== 'N') {
+                message.success(newEvent.id ? "일정이 수정되었습니다!" : "새로운 일정이 추가되었습니다!");
+                fetchEvents();  // 일정 목록 다시 불러오기
+                return true;
+            } else {
+                message.error(data.message);
+                return false;
+            }
+        } catch (error) {
+            console.error("❌ 저장 실패:", error);
+            message.error(newEvent.id ? "수정 실패" : "추가 실패");
+            return false;
+        }
     }, [fetchEvents]);
 
 
