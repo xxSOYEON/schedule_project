@@ -20,25 +20,110 @@
 
 # 🚀 빌드 및 실행 방법
 ---
-
-
-**1. 프로젝트 클론**
-
-https://github.com/xxSOYEON/schedule_project.git
+## 1. Database 설정
 
 <br>
 
-**2. 프론트엔드 실행**
+1- Debeaver에 데이터베이스설정
 ```bash
-cd front/frontend/ 
-npm install 
-npm start 
+CREATE DATABASE schedule_management CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
-**3. 백엔드 실행**
+<br>
+
+2- Debeaver에 DB 사용자 계정 생성 및 권한 부여
+
 ```bash
-cd backend
-./gradlew bootRun
+
+CREATE USER 'developer'@'%' IDENTIFIED BY 'qhdkscjfwj1!';
+GRANT ALL PRIVILEGES ON schedule_management.* TO 'developer'@'%';
+FLUSH PRIVILEGES;
 ```
+<br>
+
+3- Debeaver에 DDL Script 실행
+
+```bash
+CREATE TABLE IF NOT EXISTS schedules (
+    id INT PRIMARY KEY AUTO_INCREMENT,    
+    title VARCHAR(20) NOT NULL,         
+    description VARCHAR(500) NULL, 
+    createdDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,       
+    startDate TIMESTAMP NOT NULL,          
+    endDate TIMESTAMP NOT NULL,           
+    startTime TIME NULL,                    
+    endTime TIME NULL,                       
+    priorityName VARCHAR(50) NULL           
+);
+
+```
+<br>
+
+4- Debeaver에 DML Script 실행
+
+```bash
+
+INSERT INTO schedules (title, description, startDate, endDate, startTime, endTime, priorityName)
+VALUES ('일정_1', '설명_1', '2025-03-06 10:00:00', '2025-03-07 11:00:00', '10:00:00', '11:00:00', 'High');
+
+INSERT INTO schedules (title, description, startDate, endDate, startTime, endTime, priorityName)
+VALUES ('일정_2', '설명_2', '2025-03-07 10:00:00', '2025-03-07 10:00:00', '15:30:00', '11:00:00', 'Low');
+
+INSERT INTO schedules (title, description, startDate, endDate, startTime, endTime, priorityName)
+VALUES ('일정_3', '설명_3', '2025-03-08 10:00:00', '2025-03-08 10:00:00', '17:30:00', '19:00:00', 'Low');
+
+INSERT INTO schedules (title, description, startDate, endDate, startTime, endTime, priorityName)
+VALUES ('일정_4', '행
+
+<br>
+
+1. 프로젝트 클론 (GitHub에서 다운로드)
+   
+```bash
+git clone https://github.com/xxSOYEON/schedule_project.git
+cd {프로젝트 경로}/backend
+```
+<br>
+
+2.Gradle 빌드
+```bash
+
+./gradle clean build
+
+```
+<br>
+
+3.jar 실행
+```bash
+
+java -jar .\app-0.0.1-SNAPSHOT.jar
+
+```
+<br>
+
+## 3. frontend 실행
+<br>
+
+1.프론트앤드 경로 이동
+```bash
+cd ..front/frontend
+```
+<br>
+
+2.필요한 패키지 설치
+```bash
+npm install
+npm install react-big-calendar dayjs
+
+```
+<br>
+
+3.서버 실행
+```bash
+npm start
+```
+<br>
+
+
 
 ---
 
