@@ -1,5 +1,14 @@
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .App-logo {

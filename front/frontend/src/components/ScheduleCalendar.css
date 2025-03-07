@@ -1,0 +1,146 @@
+/* 📌 전체 화면을 flex로 설정하여 좌우로 나누어줍니다 */
+#root {
+  display: flex;
+  flex-direction: column; /* 세로로 배치 */
+  height: 100vh; /* 전체 화면 높이를 100vh로 설정 */
+}
+
+/* App 컨테이너 */
+.App {
+  display: flex;
+  width: 90%; /* 화면 비율 90% */
+  flex-direction: row; /* To-Do 리스트와 달력을 가로로 배치 */
+  height: 100%; /* 화면의 나머지 부분 차지 */
+}
+
+/* To-Do 리스트 영역 스타일 */
+.todo-container {
+  flex: 1 1 300px; /* 최소 300px로 설정, 크기 조정 가능 */
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin-right: 20px;
+  border-right: 2px solid #ddd;
+  height: 100%; /* To-Do 리스트 영역이 전체 높이를 차지 */
+  overflow-y: auto; /* To-Do 리스트가 길어지면 스크롤 */
+}
+
+/* React Big Calendar 영역 스타일 */
+.calendar-container {
+  flex: 3; /* 달력이 오른쪽에 3배 더 넓은 비율로 설정 */
+  background-color: white;
+  border-left: 2px solid #ddd;
+  height: 100%; /* 달력 영역이 전체 높이를 차지 */
+}
+
+/* 📌 Calendar 헤더 스타일 */
+.calendar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0px 0; /* 헤더 공간을 줄임 */
+}
+
+/* 📌 Calendar 제목 스타일 */
+.calendar-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px; /* 제목과 다른 요소 사이 간격 줄임 */
+  text-align: center;
+}
+
+/* 📌 캘린더 전체 스타일 */
+.calendar-container {
+  flex-grow: 1; /* 부모 높이에 맞추도록 설정 */
+  width: 100%;
+  height: calc(100vh - 70px); /* 헤더 높이를 제외하고 화면을 꽉 채움 */
+  min-height: 98vh;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 📌 rbc-toolbar (툴바)와 캘린더 사이 간격 추가 */
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-bottom: 10px; /* 툴바와 달력 사이 간격 추가 */
+}
+
+/* 📌 왼쪽 (Month/Week/Day/Agenda 버튼) */
+.toolbar-left {
+  display: flex;
+  gap: 8px;
+}
+
+/* 📌 중앙 정렬 (이전/다음 버튼 + 년월 표시) */
+.toolbar-center {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 중앙 정렬 */
+  flex-grow: 1;
+  gap: 8px;
+  margin-left: -130px; /* 자연스럽게 왼쪽으로 이동 */
+}
+
+/* 📌 오른쪽 (Filter & Add Event 버튼) */
+.toolbar-right {
+  display: flex;
+  gap: 8px;
+}
+
+.toolbar-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 📌 일정(이벤트) 스타일 */
+.rbc-event {
+  padding: 3px 5px !important;
+  border-radius: 3px; /* 둥글게 없애기 */
+  font-size: 12px !important;
+  margin-bottom: 2px !important;
+  min-height: 16px !important;
+  box-shadow: none !important; /* 그림자 제거 */
+}
+
+/* 📌 전체 배경색 부드럽게 변경 */
+body {
+  background: #F8F9FA; /* 밝은 회색 */
+  color: #333;
+}
+
+/* 📌 캘린더 셀 테두리 색상 연하게 조정 */
+.rbc-month-view {
+  border: 1px solid #E1E4E8;
+  background: white;
+}
+
+.rbc-day-bg {
+  border-right: 1px solid #E1E4E8 !important; /* 날짜 칸 경계 연한 회색 */
+  border-bottom: 1px solid #E1E4E8 !important;
+}
+
+.rbc-off-range-bg {
+  background: #F4F6F8 !important; /* 비활성 날짜 배경 */
+}
+
+/* 📌 커스텀 드롭다운 버튼 스타일 */
+.custom-dropdown-btn {
+  all: unset; /* Ant Design 기본 스타일 초기화 */
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.custom-dropdown-btn:hover {
+  background-color: #f1f1f1;
+}
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sykim.schedule.backend.mapper.SchedulesMapper">
+
+    <select id="getSchedules" resultType="com.sykim.schedule.backend.vo.Schedules">
+        SELECT 
+            id,
+            title,
+            description,
+            createdDate,
+            startDate,
+            endDate,
+            startTime,
+            endTime,
+            priorityName
+        FROM schedules
+        ORDER BY createdDate ASC, startDate ASC;
+    </select>
+
+    <select id="getSchedulesById" parameterType="int" resultType="com.sykim.schedule.backend.vo.Schedules">
+        SELECT 
+            id,
+            title,
+            description,
+            createdDate,
+            startDate,
+            endDate,
+            startTime,
+            endTime,
+            priorityName
+        FROM schedules
+        WHERE id = #{id}  <!-- id를 조건으로 조회 -->
+        ORDER BY createdDate ASC, startDate ASC;
+    </select>
+
+    <select id="checkTime" resultType="int" parameterType="com.sykim.schedule.backend.vo.Schedules">
+        SELECT COUNT(*)
+        FROM schedules
+        WHERE 
+            startDate = #{startDate}  
+            AND (
+                (startTime &lt; #{endTime} AND endTime &gt; #{startTime})  
+                OR
+                (startTime &lt; #{startTime} AND endTime &gt; #{endTime})  
+            );
+    </select>
+
+    <insert id="addSchedule" useGeneratedKeys="true" keyProperty="id" parameterType="com.sykim.schedule.backend.vo.Schedules" >
+        INSERT INTO schedules (
+            title, 
+            description, 
+            createdDate, 
+            startDate, 
+            endDate, 
+            startTime,   
+            endTime,    
+            priorityName
+        ) VALUES (
+            #{title}, 
+            #{description}, 
+            CURRENT_DATE,  
+            #{startDate}, 
+            #{endDate}, 
+            #{startTime},   
+            #{endTime},   
+            #{priorityName}
+        );
+    </insert>
+
+
+    <update id="updateSchedule" parameterType="com.sykim.schedule.backend.vo.Schedules">
+        UPDATE schedules
+        SET 
+            title = #{title}, 
+            description = #{description}, 
+            startDate = #{startDate}, 
+            endDate = #{endDate}, 
+            startTime = #{startTime}, 
+            endTime = #{endTime},  
+            priorityName = #{priorityName}
+        WHERE id = #{id};
+    </update>
+    
+    
+    <delete id="deleteSchedule" parameterType="int">
+        DELETE FROM schedules
+        WHERE id = #{id};
+    </delete>
+
+
+
+</mapper>
