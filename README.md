@@ -11,7 +11,7 @@
 
 
 
-# 🚀 설치 및 실행 방법
+# 🚀 빌드 및 실행 방법
 1. 프로젝트 클론
 ```bash
 git clone https://github.com/사용자명/저장소명.git
@@ -28,13 +28,12 @@ cd backend
 ./gradlew bootRun
 
 
-
-## 🛠 사용 기술
+### 🛠 사용 기술
 - **Frontend**: React, Ant Design, React-Big-Calendar
 - **Backend**: Spring Boot, MyBatis, MySQL
 
 
-#📌 Front 주요 컴포넌트 및 역할
+####📌 Front 주요 컴포넌트 및 역할
 
 1️⃣ `App.js` (메인 컴포넌트)
 - 프로젝트의 최상위 컴포넌트
@@ -57,7 +56,7 @@ cd backend
 -  함수를 통해 일정 CRUD 기능 수행
 
 
-#📌 Backend 주요 사용 라이브러리 및 이유
+###📌 Backend 주요 사용 라이브러리 및 이유
 1️⃣ React
 React는 UI를 빠르고 효율적으로 만들 수 있는 JavaScript 라이브러리,
 컴포넌트 기반 개발로 UI 재사용성을 높이고, 빠른 상태 관리를 위해 사용.
@@ -77,5 +76,12 @@ SQL 쿼리를 직접 작성할 수 있어 데이터베이스 관리가 유연하
 
 🔗 Swagger UI:
 👉 http://localhost:8080/swagger-ui/index.html#/base-task-logs-controller
+
+🔗 DB스키마 및 기초데이터 백업파일
+- DDL.sql, DML.sql
+
+🔗 테스트 케이스 파일
+- 
+
 
 
