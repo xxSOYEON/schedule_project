@@ -181,13 +181,14 @@ SQL 쿼리를 직접 작성할 수 있어 데이터베이스 관리가 유연하
 <br><br>
 
 
-# 📌 API 명세서
+# 📌 API 
 ---
 
-
-🔗 Swagger UI : **[Swagger UI 바로가기](http://localhost:8080/swagger-ui.html)**  
-
-##  1. API 목록
+## 1. API 명세서
+**🔗 Swagger 주소 : http://localhost:8080/swagger-ui/index.html**
+( backend 서버 정상 가동 후 swagger 접속 가능 )
+<br>
+##  2. API 목록
 | HTTP Method | URL | 설명 |
 |------------|-----|-----|
 | GET | `/api/schedule/list` | 일정 목록 조회 |
@@ -198,7 +199,7 @@ SQL 쿼리를 직접 작성할 수 있어 데이터베이스 관리가 유연하
 
 <br>
 
-##  2.API 테스트 케이스
+## 3.API 테스트 케이스
 
 <details>
 <summary><b> < 테스트 목록 > (클릭하여 확인하세요.)</b></summary>
