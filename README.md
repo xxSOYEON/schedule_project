@@ -87,7 +87,7 @@ cd {프로젝트 경로}/backend
 2.Gradle 빌드
 ```bash
 
-./gradle clean build
+./gradlew clean build
 
 ```
 <br>
