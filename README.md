@@ -94,8 +94,8 @@ cd {프로젝트 경로}/backend
 
 3.jar 실행
 ```bash
-
-java -jar .\app-0.0.1-SNAPSHOT.jar
+cd .\build\libs\
+java -jar .\backend-0.0.1-SNAPSHOT.jar
 
 ```
 <br>
