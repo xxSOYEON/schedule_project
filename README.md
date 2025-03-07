@@ -73,7 +73,7 @@ VALUES ('일정_3', '설명_3', '2025-03-08 10:00:00', '2025-03-08 10:00:00', '1
 
 INSERT INTO schedules (title, description, startDate, endDate, startTime, endTime, priorityName)
 VALUES ('일정_4', '행
-
+```
 <br>
 
 1. 프로젝트 클론 (GitHub에서 다운로드)
