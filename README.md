@@ -75,9 +75,23 @@ VALUES ('일정_3', '설명_3', '2025-03-08 10:00:00', '2025-03-08 10:00:00', '1
 INSERT INTO schedules (title, description, startDate, endDate, startTime, endTime, priorityName)
 VALUES ('일정_4', '설명_4', '2025-03-08 10:00:00', '2025-03-09 10:00:00', '00:00:00', '00:00:00', 'Middle');
 ```
+
 <br>
 
-1. 프로젝트 클론 (GitHub에서 다운로드 및 window powershell 이용 )
+## 2. backend 실행 
+<br>
+
+1. SpringBoot의 application.properties의 # MySQL 연결 정보 확인.
+
+```bash
+# connection setting - mysql for primary user
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/schedule_management
+spring.datasource.username=developer
+spring.datasource.password=qhdkscjfwj1!
+```
+
+2. 프로젝트 클론 (GitHub에서 다운로드 및 window powershell 이용 )
    
 ```bash
 git clone https://github.com/xxSOYEON/schedule_project.git
@@ -85,7 +99,7 @@ cd {프로젝트 경로}/backend
 ```
 <br>
 
-2.Gradle 빌드
+3.Gradle 빌드
 ```bash
 
 ./gradlew clean build
@@ -93,7 +107,7 @@ cd {프로젝트 경로}/backend
 ```
 <br>
 
-3.jar 실행
+4.jar 실행
 ```bash
 cd .\build\libs\
 java -jar .\backend-0.0.1-SNAPSHOT.jar
